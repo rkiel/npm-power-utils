@@ -1,5 +1,5 @@
 const pathTo = x => require("../../../../" + x);
-const lib = pathTo("lib/immutable/shared/get").lib;
+const lib = pathTo("lib/shared/immutable/get").lib;
 
 describe("get", () => {
   let object, value, defaultValue;
