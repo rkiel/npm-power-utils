@@ -1,0 +1,23 @@
+{
+  "name": "power-utils",
+  "version": "0.1.0",
+  "description": "General purpose JavaScript utilities",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkiel/npm-power-utils.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "utilities"
+  ],
+  "author": "Robert Kiel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rkiel/npm-power-utils/issues"
+  },
+  "homepage": "https://github.com/rkiel/npm-power-utils#readme"
+}
