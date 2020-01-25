@@ -3,6 +3,9 @@ const lib = pathTo("lib/flow").lib;
 
 describe("flow", () => {
   it("should work", () => {
+    expect(lib.flow()).toEqual(undefined);
+  });
+  it("should work", () => {
     expect(lib.flow({})).toEqual(undefined);
   });
   it("should work", () => {
@@ -73,6 +76,20 @@ describe("flow", () => {
         input: [1, 2],
         promise: [add, double],
         output: 600
+      })
+      .then(result => expect(result).toEqual(600));
+  });
+  it("should work", () => {
+    function add() {
+      throw "FAIL";
+    }
+    const double = a => a * 2;
+    const handleError = () => 600;
+    return lib
+      .flow({
+        input: [1, 2],
+        promise: [add, double],
+        error: handleError
       })
       .then(result => expect(result).toEqual(600));
   });
