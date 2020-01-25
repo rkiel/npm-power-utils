@@ -55,4 +55,39 @@ describe("flow", () => {
       })
     ).toEqual(6);
   });
+  it("should work", () => {
+    const add = (a, b) => a + b;
+    const double = a => a * 2;
+    return lib
+      .flow({
+        input: [1, 2],
+        promise: [add, double]
+      })
+      .then(result => expect(result).toEqual(6));
+  });
+  it("should work", () => {
+    const add = (a, b) => a + b;
+    const double = a => a * 2;
+    return lib
+      .flow({
+        input: [1, 2],
+        promise: [add, double],
+        output: 600
+      })
+      .then(result => expect(result).toEqual(600));
+  });
+  it("should work", () => {
+    function double() {
+      throw "FAIL";
+    }
+    const add = (a, b) => a + b;
+    const handleError = () => 600;
+    return lib
+      .flow({
+        input: [1, 2],
+        promise: [add, double],
+        error: handleError
+      })
+      .then(result => expect(result).toEqual(600));
+  });
 });
