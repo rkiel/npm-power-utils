@@ -9,6 +9,9 @@ describe("flow", () => {
     expect(lib.flow({})).toEqual(undefined);
   });
   it("should work", () => {
+    expect(lib.flow({ input: 2 })).toEqual(undefined);
+  });
+  it("should work", () => {
     expect(lib.flow({ output: 400 })).toEqual(400);
   });
   it("should work", () => {
@@ -57,6 +60,15 @@ describe("flow", () => {
         now: [add, double]
       })
     ).toEqual(6);
+  });
+  it("should work", () => {
+    const add = (a, b) => a + b;
+    return lib
+      .flow({
+        input: [1, 2],
+        promise: add
+      })
+      .then(result => expect(result).toEqual(3));
   });
   it("should work", () => {
     const add = (a, b) => a + b;
