@@ -23,6 +23,16 @@ describe("set", () => {
   });
   it("should work", () => {
     object = {};
+    expect(lib.set(object, "one", null)).toEqual({ one: null });
+    expect(object).toEqual({});
+  });
+  it("should work", () => {
+    object = {};
+    expect(lib.set(object, "one")(value)).toEqual({ one: 1 });
+    expect(object).toEqual({});
+  });
+  it("should work", () => {
+    object = {};
     expect(lib.set(object, "one.two", value)).toEqual({ one: { two: 1 } });
     expect(object).toEqual({});
   });
