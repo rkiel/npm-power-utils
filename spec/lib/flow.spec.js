@@ -3,7 +3,7 @@ const lib = pathTo("lib/flow").lib;
 
 describe("flow", () => {
   it("should work", () => {
-    expect(lib.flow({})).toEqual(undefined);
+    expect(lib.flow({})).toEqual(null);
   });
   it("should work", () => {
     const double = a => a * 2;
