@@ -9,7 +9,7 @@ describe("flow", () => {
     const double = a => a * 2;
     expect(
       lib.flow({
-        inputs: 2,
+        in: 2,
         now: double
       })
     ).toEqual(4);
@@ -18,7 +18,7 @@ describe("flow", () => {
     const double = a => a * 2;
     expect(
       lib.flow({
-        inputs: [2],
+        in: [2],
         now: [double]
       })
     ).toEqual(4);
@@ -28,7 +28,7 @@ describe("flow", () => {
     const double = a => a * 2;
     expect(
       lib.flow({
-        inputs: [1, 2],
+        in: [1, 2],
         now: [add]
       })
     ).toEqual(3);
@@ -38,7 +38,7 @@ describe("flow", () => {
     const double = a => a * 2;
     expect(
       lib.flow({
-        inputs: [1, 2],
+        in: [1, 2],
         now: [add, double]
       })
     ).toEqual(6);
