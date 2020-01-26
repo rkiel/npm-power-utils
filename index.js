@@ -1,7 +1,7 @@
 module.exports = {
   flow: require("./lib/flow"),
   fp: require("./lib/fp"),
-  immutable: require("./lib/immutable"),
+  im: require("./lib/im"),
   promise: require("./lib/promise"),
   shared: require("./lib/shared")
 };

@@ -1,5 +1,5 @@
 const pathTo = x => require("../../../../" + x);
-const lib = pathTo("lib/shared/immutable/set").lib;
+const lib = pathTo("lib/shared/im/set").lib;
 
 const s = x => x.split(".");
 

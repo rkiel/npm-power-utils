@@ -1,5 +1,5 @@
 const pathTo = x => require("../../../" + x);
-const lib = pathTo("lib/immutable/set").lib;
+const lib = pathTo("lib/im/set").lib;
 
 describe("set", () => {
   let object, value;
