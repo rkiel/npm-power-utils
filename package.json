@@ -1,6 +1,6 @@
 {
   "name": "power-utils",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "General purpose JavaScript utilities",
   "main": "index.js",
   "scripts": {
