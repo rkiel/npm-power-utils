@@ -77,3 +77,37 @@ lib.add(2)(3) // 5
 lib.curry // undefined
 lib.normal // undefined
 ```
+
+Export the `module` with the entire object.
+
+```JavaScript
+const lib = fp.methods({
+  curry: {
+    add
+  },
+  normal: {
+    double
+  },
+  module
+})
+
+// module.exports = lib
+```
+
+Export the `module` with just a specific function.
+
+```JavaScript
+const lib = fp.methods({
+  curry: {
+    add
+  },
+  normal: {
+    double
+  },
+  module,
+  exports: 'double'
+})
+
+// module.exports = lib.double
+// module.exports.lib = lib;
+```

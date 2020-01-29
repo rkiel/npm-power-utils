@@ -93,5 +93,71 @@ describe("methods", () => {
       expect(m.three(2)(3)(4)).toEqual(24);
       expect(m.four(2, 3, 4, 5)).toEqual(120);
     });
+    it("should work with a module", () => {
+      const module = {};
+      const m = lib.methods({
+        normal: {
+          one,
+          two
+        },
+        module
+      });
+      expect(Object.keys(m).sort()).toEqual(["one", "two"]);
+      expect(Object.keys(module.exports).sort()).toEqual(["one", "two"]);
+    });
+    it("should work with a module", () => {
+      const module = {};
+      const m = lib.methods({
+        curry: {
+          one,
+          two
+        },
+        module
+      });
+      expect(Object.keys(m).sort()).toEqual(["one", "two"]);
+      expect(Object.keys(module.exports).sort()).toEqual(["one", "two"]);
+    });
+    it("should work with a module", () => {
+      const module = {};
+      const m = lib.methods({
+        normal: {
+          one,
+          two
+        },
+        module,
+        main: "one"
+      });
+      expect(Object.keys(m).sort()).toEqual(["one", "two"]);
+      expect(module.exports).toEqual(m.one);
+      expect(Object.keys(module.exports.lib)).toEqual(["one", "two"]);
+    });
+    it("should work with a module", () => {
+      const module = {};
+      const m = lib.methods({
+        normal: {
+          one,
+          two
+        },
+        module,
+        exports: "one"
+      });
+      expect(Object.keys(m).sort()).toEqual(["one", "two"]);
+      expect(module.exports).toEqual(m.one);
+      expect(Object.keys(module.exports.lib)).toEqual(["one", "two"]);
+    });
+    it("should work with a module", () => {
+      const module = {};
+      const m = lib.methods({
+        curry: {
+          one,
+          two
+        },
+        module,
+        exports: "one"
+      });
+      expect(Object.keys(m).sort()).toEqual(["one", "two"]);
+      expect(module.exports).toEqual(m.one);
+      expect(Object.keys(module.exports.lib)).toEqual(["one", "two"]);
+    });
   }); // methods
 });
