@@ -10,6 +10,10 @@ function add (a , b) {
 function double (x) {
   return x * 2
 }
+
+function handleError(e) {
+  console.log(e.message)
+}
 ```
 
 Load the `fp` part of `power-utils`.
