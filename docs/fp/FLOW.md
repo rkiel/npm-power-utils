@@ -1,5 +1,7 @@
 ## flow
 
+Here are some random functions that will be used to illustrate how `flow` works.
+
 ```JavaScript
 function add (a , b) {
   return a + b;
@@ -9,6 +11,8 @@ function double (x) {
   return x * 2
 }
 ```
+
+Load the `fp` part of `power-utils`.
 
 ```JavaScript
 const { fp } = require('power-utils');
