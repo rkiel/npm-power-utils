@@ -1,5 +1,5 @@
-const pathTo = x => require("../../" + x);
-const lib = pathTo("lib/methods").lib;
+const pathTo = x => require("../../../" + x);
+const lib = pathTo("lib/fp/methods").lib;
 
 describe("methods", () => {
   describe("methods", () => {
