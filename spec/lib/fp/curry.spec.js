@@ -24,5 +24,6 @@ describe("curry", () => {
     const f = lib.curry((a, b, c, d) => a * b * c * d);
     expect(f(2, 3, 4, 5)).toEqual(120);
     expect(f(2)(3)(4)(5)).toEqual(120);
+    expect(f(2, 3, 4, 5, 6)).toEqual(120);
   });
 });
