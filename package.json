@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/rkiel/npm-power-utils#readme",
   "devDependencies": {
+    "eslint": "^6.8.0",
     "jasmine": "^3.5.0"
   }
 }
