@@ -1,20 +1,19 @@
-const pathTo = x => require("../../../" + x);
-const lib = pathTo("lib/fp/flow").lib;
+const lib = require('../../../lib/shared/flow').lib;
 
-describe("flow", () => {
-  it("should work", () => {
+describe('flow', () => {
+  it('should work', () => {
     expect(lib.flow()).toEqual(undefined);
   });
-  it("should work", () => {
+  it('should work', () => {
     expect(lib.flow({})).toEqual(undefined);
   });
-  it("should work", () => {
+  it('should work', () => {
     expect(lib.flow({ input: 2 })).toEqual(undefined);
   });
-  it("should work", () => {
+  it('should work', () => {
     expect(lib.flow({ output: 400 })).toEqual(400);
   });
-  it("should work", () => {
+  it('should work', () => {
     const double = a => a * 2;
     expect(
       lib.flow({
@@ -23,7 +22,7 @@ describe("flow", () => {
       })
     ).toEqual(4);
   });
-  it("should work", () => {
+  it('should work', () => {
     const double = a => a * 2;
     expect(
       lib.flow({
@@ -33,7 +32,7 @@ describe("flow", () => {
       })
     ).toEqual(400);
   });
-  it("should work", () => {
+  it('should work', () => {
     const double = a => a * 2;
     expect(
       lib.flow({
@@ -42,7 +41,7 @@ describe("flow", () => {
       })
     ).toEqual(4);
   });
-  it("should work", () => {
+  it('should work', () => {
     const add = (a, b) => a + b;
     expect(
       lib.flow({
@@ -51,7 +50,7 @@ describe("flow", () => {
       })
     ).toEqual(3);
   });
-  it("should work", () => {
+  it('should work', () => {
     const add = (a, b) => a + b;
     const double = a => a * 2;
     expect(
@@ -61,7 +60,7 @@ describe("flow", () => {
       })
     ).toEqual(6);
   });
-  it("should work", () => {
+  it('should work', () => {
     const add = (a, b) => a + b;
     return lib
       .flow({
@@ -70,7 +69,7 @@ describe("flow", () => {
       })
       .then(result => expect(result).toEqual(3));
   });
-  it("should work", () => {
+  it('should work', () => {
     const add = (a, b) => a + b;
     const double = a => a * 2;
     return lib
@@ -80,7 +79,7 @@ describe("flow", () => {
       })
       .then(result => expect(result).toEqual(6));
   });
-  it("should work", () => {
+  it('should work', () => {
     const add = (a, b) => a + b;
     const double = a => a * 2;
     return lib
@@ -91,9 +90,9 @@ describe("flow", () => {
       })
       .then(result => expect(result).toEqual(600));
   });
-  it("should work", () => {
+  it('should work', () => {
     function add() {
-      throw "FAIL";
+      throw 'FAIL';
     }
     const double = a => a * 2;
     const handleError = () => 600;
@@ -105,9 +104,9 @@ describe("flow", () => {
       })
       .then(result => expect(result).toEqual(600));
   });
-  it("should work", () => {
+  it('should work', () => {
     function double() {
-      throw "FAIL";
+      throw 'FAIL';
     }
     const add = (a, b) => a + b;
     const handleError = () => 600;
