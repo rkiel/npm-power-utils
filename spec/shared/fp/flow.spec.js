@@ -1,4 +1,4 @@
-const lib = require('../../../../lib/shared/fp/flow').lib;
+const lib = require('../../../shared/fp/flow').lib;
 
 describe('flow', () => {
   it('should work', () => {

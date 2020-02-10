@@ -1,4 +1,4 @@
-const lib = require('../../../../../lib/shared/fp/im/get').lib;
+const lib = require('../../../shared/im/get').lib;
 
 describe('get', () => {
   let object, defaultValue;

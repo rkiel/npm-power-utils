@@ -1,4 +1,4 @@
-const lib = require('../../../../lib/shared/fp/curry').lib;
+const lib = require('../../../shared/fp/curry').lib;
 
 describe('curry', () => {
   it('should work with no arguments', () => {

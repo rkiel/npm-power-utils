@@ -1,4 +1,4 @@
-const lib = require('../../../../lib/shared/fp/methods').lib;
+const lib = require('../../../shared/fp/methods').lib;
 
 describe('methods', () => {
   describe('methods', () => {
