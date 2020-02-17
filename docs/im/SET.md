@@ -9,5 +9,5 @@ im.set(user, 'first', 'Sara')
 // {first: 'Sara', last: 'Smith', social: {twitter: '@theRealSjs'}}
 
 im.set(user, 'email.work', 'sjs@work.com')
-// {first: 'Sarah', last: 'Smith', {email: {work: 'sjs@work.com'}}, social: {twitter: '@theRealSjs'}}
+// {first: 'Sarah', last: 'Smith', email: {work: 'sjs@work.com'}, social: {twitter: '@theRealSjs'}}
 ```
