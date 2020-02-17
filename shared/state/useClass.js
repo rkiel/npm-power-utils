@@ -18,19 +18,27 @@ class useClass {
   init(value) {
     return _im.set(this.object, [this.prefix], value);
   }
-  get(path) {
+  get(path, defaultValue) {
     if (path === undefined || path === null) {
       return this.object[this.prefix];
     } else {
       const parts = path.split('.');
       parts.unshift(this.prefix);
-      return _im.get(this.object, parts);
+      return _im.get(this.object, parts, defaultValue);
     }
   }
   set(path, value) {
-    const parts = path.split('.');
-    parts.unshift(this.prefix);
-    return _im.set(this.object, parts, value);
+    if (arguments.length === 1) {
+      return Object.keys(path).reduce((object, key) => {
+        const parts = key.split('.');
+        parts.unshift(this.prefix);
+        return _im.set(object, parts, path[key]);
+      }, this.object);
+    } else {
+      const parts = path.split('.');
+      parts.unshift(this.prefix);
+      return _im.set(this.object, parts, value);
+    }
   }
 }
 

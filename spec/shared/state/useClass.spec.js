@@ -31,6 +31,22 @@ describe('useClass', () => {
         one: { a: 'AAA', b: 'BBB', c: { d: 'DDD' } }
       });
     });
+    it('should work', () => {
+      expect(one.set('c.d', 'ddd')).toEqual({
+        one: { a: 'AAA', b: 'BBB', c: { d: 'ddd' } }
+      });
+      expect(state).toEqual({
+        one: { a: 'AAA', b: 'BBB', c: { d: 'DDD' } }
+      });
+    });
+    it('should work', () => {
+      expect(one.set({ a: 'aaa', 'c.d': 'ddd' })).toEqual({
+        one: { a: 'aaa', b: 'BBB', c: { d: 'ddd' } }
+      });
+      expect(state).toEqual({
+        one: { a: 'AAA', b: 'BBB', c: { d: 'DDD' } }
+      });
+    });
   }); // set
 
   describe('init', () => {
