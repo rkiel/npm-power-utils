@@ -1,6 +1,6 @@
-const useClass = require('../../../shared/state/useClass');
+const Namespace = require('../../../shared/state/Namespace');
 
-describe('useClass', () => {
+describe('Namespace', () => {
   let one, state;
   beforeEach(
     () =>
@@ -8,7 +8,7 @@ describe('useClass', () => {
         one: { a: 'AAA', b: 'BBB', c: { d: 'DDD' } }
       })
   );
-  beforeEach(() => (one = new useClass(state, 'one')));
+  beforeEach(() => (one = new Namespace(state, 'one')));
 
   describe('get', () => {
     it('should work', () => {
@@ -78,4 +78,4 @@ describe('useClass', () => {
       });
     });
   }); // assign
-}); // useClass
+}); // Namespace

@@ -1,10 +1,10 @@
 const _methods = require('../fp/methods');
-const useClass = require('./useClass');
+const Namespace = require('./Namespace');
 
 let lib;
 
 function _useReducer(object, accum, elem) {
-  accum[elem] = new useClass(object, elem);
+  accum[elem] = new Namespace(object, elem);
   return accum;
 }
 

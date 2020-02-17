@@ -1,9 +1,6 @@
-const _methods = require('../fp/methods');
 const _im = require('../im');
 
-let lib;
-
-class useClass {
+class Namespace {
   constructor(object, prefix) {
     this.object = object;
     this.prefix = prefix;
@@ -42,10 +39,4 @@ class useClass {
   }
 }
 
-lib = _methods({
-  normal: {
-    useClass
-  }
-});
-
-module.exports = lib.useClass;
+module.exports = Namespace;
