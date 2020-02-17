@@ -1,5 +1,6 @@
 module.exports = {
-  promise: require('./promise'),
+  fp: require('./fp'),
   im: require('./im'),
-  fp: require('./fp')
+  promise: require('./promise'),
+  state: require('./state')
 };
