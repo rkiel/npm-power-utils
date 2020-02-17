@@ -4,7 +4,7 @@ const useClass = require('./useClass');
 let lib;
 
 function _useReducer(object, accum, elem) {
-  accum[elem] = new useClass(object);
+  accum[elem] = new useClass(object, elem);
   return accum;
 }
 
