@@ -26,6 +26,6 @@
     "jasmine": "^3.5.0"
   },
   "dependencies": {
-    "bluebird": "^3.7.2"
+    "immer": "^11.1.4"
   }
 }

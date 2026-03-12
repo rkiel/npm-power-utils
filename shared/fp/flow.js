@@ -1,6 +1,5 @@
 let lib;
 
-const _promise = require('../promise');
 const _methods = require('./methods');
 
 function _syncReducer(result, f) {
@@ -20,7 +19,7 @@ function _toArray(config) {
 }
 
 function _returnResult(config) {
-  return function(result) {
+  return function (result) {
     return config.output === undefined ? result : config.output;
   };
 }
@@ -36,9 +35,7 @@ function _addCatch(config, promise) {
 }
 
 function _firstPromise(config, asyncFirst) {
-  return lib._promise
-    .resolve(config)
-    .then(config => asyncFirst(...config.input));
+  return Promise.resolve(config).then((config) => asyncFirst(...config.input));
 }
 
 function _doAsyncOnly(config) {
@@ -78,7 +75,6 @@ function flow(config) {
 lib = _methods({
   normal: {
     _init,
-    _promise,
     _toArray,
     _addCatch,
     _firstPromise,
