@@ -129,6 +129,26 @@ describe('Immutable', () => {
         expect(im.set('one.two.three', 3)).toEqual({ geddy: { two: 2, one: { two: { three: 3 } } } });
       });
     }); // set
+
+    describe('change', () => {
+      it('should not change based on return value', () => {
+        expect(
+          im.change(() => {
+            return { two: 22 };
+          })
+        ).toEqual({ geddy: { two: 2 } });
+      });
+
+      it('should set one level', () => {
+        expect(
+          im.change((geddy) => {
+            geddy['two'] = 22;
+            geddy['three'] = 33;
+            geddy['four'] = { five: 55 };
+          })
+        ).toEqual({ geddy: { two: 22, three: 33, four: { five: 55 } } });
+      });
+    }); // change
   }); // WHEN state is not empty (simple)
 
   describe('WHEN state is not empty (complex)', () => {
