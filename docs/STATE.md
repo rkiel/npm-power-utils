@@ -160,29 +160,52 @@ const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1
 
 ### set
 
-```JavaScript
-const { use } = require('power-utils');
-
-function something(state) {
-  const { user } = use(state)
-  return user.set('email', 'sjs@foo.bar')
-}
-```
+Create a new copy of the global state and set a property of the value of the top-level property. The top-level property must be an object. (Inspired by `lodash.set()`)
 
 ```JavaScript
-function something(state) {
-  const { user } = use(state)
-  return user.set({email: 'sjs@foo.bar', 'social.twitter': '@theRealSjs'})
+function step1 (state) {
+  const { login  } = use(state);
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  return login.init({ username, password });
 }
+
+function step2 (state) {
+  const { login  } = use(state);
+  return login.set('preferences.rememberMe', true );
+}
+
+const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1234'}}
+const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234'}, {preferences: {rememberMe: true}}}
 ```
 
 ### get
 
-```JavaScript
-const { use } = require('power-utils');
+Get the entire value of the top-level property or get just one of its properties. A default value can also be defined.
+(Inspired by `lodash.get()`)
 
-function fullName(state) {
-  const { user } = use(state)
-  return [user.get('first'), user.get('middle', 'N/A'), user.get('last')].join(' ');
+```JavaScript
+const { login  } = use(state);
+
+function step1 (state) {
+  const { login  } = use(state);
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  return login.init({ username, password });
 }
+
+function step2 (state) {
+  const { login  } = use(state);
+
+  login.get() // {username: 'johnqpublic', password: '1234'}
+  login.get('username') // 'johnqpublic'
+  login.get('password') // '1234'
+  login.get('preferences.rememberMe') // undefined
+  login.get('preferences.rememberMe', false) // false
+
+  return state
+}
+
+const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1234'}}
+const result2 = step1(result1) // {login: {username: 'johnqpublic', password: '1234'}}
 ```
