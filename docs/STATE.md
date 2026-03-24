@@ -1,8 +1,8 @@
-## use
+# Immutable State Management
 
-Immutable State Management
+A framework to provide a simple, clean way to immutably change the global state.
 
-Here's an example
+Here's an example of it in action.
 
 ```JavaScript
 const { use } = require('power-utils').state;
@@ -23,11 +23,11 @@ function getCredentials(state) {
   // add login to state if it does not exist
   const { login } = use(state, 'login');
 
-  const userId = document.getElementById('userId').value;
+  const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
   // return new state with login initialized to be an object
-  return login.init({ userId, password });
+  return login.init({ username, password });
 }
 
 // STEP 2 - authenticate via back-end api (unauthenticated)
@@ -41,7 +41,7 @@ async function authenticate(state) {
   // if it is empty (i.e. we have not authenticated)
   if (Object.keys(token).length === 0) {
     // get two properties from the login object
-    const result = await myapi.authenticate(login.get('userId'), login.get('password'));
+    const result = await myapi.authenticate(login.get('username'), login.get('password'));
 
     // return new state with jwt initialized
     return jwt.init(result);
@@ -66,17 +66,89 @@ async function loadTasks(state) {
 }
 ```
 
+## use
+
+The `use` function transforms a POJO into a temporary object that mirrors top-level properies of the POJO with proxy objects.
+
+Each proxy object has several methods that provide for accessing the value of the top-level property (e.g. `get`) and for creating a new copy of the entire state with the contents of top-level value changed (e.g. `init`, `assign`, `change`, and `set`).
+
+Each of the proxy object methods returns a new copy of the entire state as a POJO.
+
+For example, you can define the basic structure of the global state up front. Not everything about the global state needs to defined up front. New parts can be added.
+
 ```JavaScript
-const state = {
-  form: {
-    userId: sarah2112,
-    password: '1234'
-  },
-  user: { first: 'Sarah', middle: 'Jane', last: 'Smith' },
-  cart: { items: [
-    {id: 123, qty: 2},
-    {id: 456, qty: 1}
-  ]}
+const darkMode = "auto"
+const login = {}
+const jwt = {}
+const tasks = []
+const state = { darkMode, login, jwt, tasks }
+```
+
+Use the simple, clean JavaScript destructuring syntax to access one or more of the proxy objects.
+
+```JavaScript
+function example1 (state) {
+  const { login  } = use(state);
+}
+
+function example2 (state) {
+  const { darkMode, login, jwt, tasks } = use(state);
+}
+```
+
+For cases when one or more top-level properites are not already defined, you can create them. If the top-level property already exists, it will be used. Otherwise, it will create a proxy object for an empty object. (You can set its value to something other than an object.)
+
+```JavaScript
+function example3 (state) {
+  const { one } = use(state, 'one');
+}
+
+function exmple4 (state) {
+  const { one, two, three } = use(state, 'one', 'two', 'three');
+}
+
+function example5 (state) {
+  const { login, one } = use(state, 'one');
+}
+
+function example6 (state) {
+  const { login, one } = use(state, 'login', 'one');
+}
+```
+
+### init
+
+Create a new copy of the global state and initialize/replace the value of the top-level property.
+
+```JavaScript
+function example1 (state) {
+  const { login  } = use(state);
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  return login.init({ username, password });
+}
+
+function example2 (state) {
+  const { rememberMe } = use(state, 'rememberMe');
+  return rememberMe.init(true)
+}
+```
+
+### assign
+
+Create a new copy of the global state and merge with the value of the top-level property. The top-level property must be an object. (Inspired by `Object.assign()`)
+
+```JavaScript
+function step1 (state) {
+  const { login  } = use(state);
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  return login.init({ username, password });
+}
+
+function step2 (state) {
+  const { login  } = use(state);
+  return login.assign({ rememberMe: true });
 }
 ```
 
@@ -106,32 +178,5 @@ const { use } = require('power-utils');
 function fullName(state) {
   const { user } = use(state)
   return [user.get('first'), user.get('middle', 'N/A'), user.get('last')].join(' ');
-}
-```
-
-### init
-
-```JavaScript
-const { use } = require('power-utils');
-
-function something(state) {
-  const { user } = use(state)
-  return user.init({ id: 3223, first: 'John', middle: 'Q', last: 'Public' });
-}
-
-function something(state) {
-  const { cart } = use(state)
-  return cart.init({ items: [] });
-}
-```
-
-### assign
-
-```JavaScript
-const { use } = require('power-utils');
-
-function something(state) {
-  const { user } = use(state)
-  return user.assign({email: 'sjs@foo.bar'})
 }
 ```
