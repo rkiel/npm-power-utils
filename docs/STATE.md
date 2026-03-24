@@ -116,7 +116,7 @@ function example6 (state) {
 }
 ```
 
-### init
+## init
 
 Create a new copy of the global state and initialize/replace the value of the top-level property.
 
@@ -137,7 +137,7 @@ const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1
 const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234'}, rememberMe: true}
 ```
 
-### assign
+## assign
 
 Create a new copy of the global state and merge with the value of the top-level property. The top-level property must be an object. (Inspired by `Object.assign()`)
 
@@ -158,9 +158,9 @@ const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1
 const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234', rememberMe: true}}
 ```
 
-### set
+## set
 
-Create a new copy of the global state and set a property of the value of the top-level property. The top-level property must be an object. (Inspired by `lodash.set()`)
+Create a new copy of the global state and set a property of the value of the top-level property. The top-level property value must be an object. (Inspired by `lodash.set()`)
 
 ```JavaScript
 function step1 (state) {
@@ -179,10 +179,37 @@ const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1
 const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234'}, {preferences: {rememberMe: true}}}
 ```
 
-### get
+## change
 
-Get the entire value of the top-level property or get just one of its properties. A default value can also be defined.
-(Inspired by `lodash.get()`)
+Create a new copy of the global state and make one or more changes to the value of the top-level property. In some cases, given the structure of the top-level property, using `change`, is more convenient than using `init`, `assign`, or `set`.
+
+```JavaScript
+function step1 (state) {
+  const { login  } = use(state);
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  return login.init({ username, password });
+}
+
+function step2 (state) {
+  const { login  } = use(state);
+  return login.change(draft => {
+    draft.username = draft.username.toLowerCase()
+    draft.code = document.getElementById('code').value;
+    if (!draft.preferences) {
+      draft.preferences = []
+    }
+    draft.preferences.push({rememberMe: false})
+  })
+}
+
+const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1234'}}
+const result2 = step2(result1) // {login: {username: 'JOHNQPUBLIC', password: '1234', code: 'YYZ', preferences: [{rememberMe: false}]}}
+```
+
+## get
+
+Get the entire value of the top-level property. If the value of the top-level property is an object, get can return just one of its properties. A default value can also be defined. (Inspired by `lodash.get()`)
 
 ```JavaScript
 const { login  } = use(state);
