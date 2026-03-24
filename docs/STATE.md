@@ -68,13 +68,13 @@ async function loadTasks(state) {
 
 ## use
 
-The `use` function transforms a POJO into a temporary object that mirrors top-level properies of the POJO with proxy objects.
+The `use` function transforms the global state as a POJO into a temporary object that mirrors the top-level properies of the global state with proxy objects.
 
-Each proxy object has several methods that provide for accessing the value of the top-level property (e.g. `get`) and for creating a new copy of the entire state with the contents of top-level value changed (e.g. `init`, `assign`, `change`, and `set`).
+Each proxy object has several methods that provide for accessing the value of the top-level property (e.g. `get`) and for creating a new copy of the global state with the contents of top-level value changed (e.g. `init`, `assign`, `change`, and `set`).
 
-Each of the proxy object methods returns a new copy of the entire state as a POJO.
+Each of the proxy object methods returns a new copy of the global state as a POJO.
 
-For example, you can define the basic structure of the global state up front. Not everything about the global state needs to defined up front. New parts can be added.
+For example, you can define the basic structure of the global state up front. However, not everything about the global state needs to defined up front. New parts can be added later.
 
 ```JavaScript
 const darkMode = "auto"
@@ -121,17 +121,20 @@ function example6 (state) {
 Create a new copy of the global state and initialize/replace the value of the top-level property.
 
 ```JavaScript
-function example1 (state) {
+function step1 (state) {
   const { login  } = use(state);
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
   return login.init({ username, password });
 }
 
-function example2 (state) {
+function step2 (state) {
   const { rememberMe } = use(state, 'rememberMe');
   return rememberMe.init(true)
 }
+
+const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1234'}}
+const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234'}, rememberMe: true}
 ```
 
 ### assign
@@ -150,6 +153,9 @@ function step2 (state) {
   const { login  } = use(state);
   return login.assign({ rememberMe: true });
 }
+
+const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1234'}}
+const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234', rememberMe: true}}
 ```
 
 ### set
