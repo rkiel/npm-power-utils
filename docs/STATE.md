@@ -2,20 +2,26 @@
 
 Immutable State Management
 
-Start with an empty state. Just a plain on old JavaScript object.
+Here's an example
 
 ```JavaScript
 const { use } = require('power-utils').state;
 
+// fictitious button onClick handler
+// start with an empty state (plain old javascript object)
+// STEP 1 - grab credentails from login form data
+// STEP 2 - authenticate via back-end api (unauthenticated)
+// STEP 3 - retrieve tasks from back-end api (authenticated)
 async function onButtonClick() {
   const state = { }
   const run = pipe(getCredentials, authenticate, loadTasks)
   return await run(state)
 }
 
+// STEP 1 - grab credentails from login form data
 function getCredentials(state) {
   // add login to state if it does not exist
-  const { login } = use(state, "login");
+  const { login } = use(state, 'login');
 
   const userId = document.getElementById('userId').value;
   const password = document.getElementById('password').value;
@@ -24,18 +30,29 @@ function getCredentials(state) {
   return login.init({ userId, password });
 }
 
+// STEP 2 - authenticate via back-end api (unauthenticated)
 async function authenticate(state) {
    // add jwt to state if it does not exist
    // assume that login has already been added to state
   const { jwt, login } = use(state, 'jwt');
 
-  // get two properties from the login object
-  const result = await myapi.authenticate(login.get('userId'), login.get('password'));
+  // get the whole contents of jwt
+  const token = jwt.get();
+  // if it is empty (i.e. we have not authenticated)
+  if (Object.keys(token).length === 0) {
+    // get two properties from the login object
+    const result = await myapi.authenticate(login.get('userId'), login.get('password'));
 
-  // return new state with jwt initialized
-  return jwt.init(result);
+    // return new state with jwt initialized
+    return jwt.init(result);
+  } else {
+    // we have previously authenticated
+    // return state unchanged
+    return state;
+  }
 }
 
+// STEP 3 - retrieve tasks from back-end api (authenticated)
 async function loadTasks(state) {
   // add tasks to state if it does not exit
   // assume that jwt has already been added to state
