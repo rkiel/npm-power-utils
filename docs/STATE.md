@@ -2,6 +2,12 @@
 
 A framework to provide a simple, clean way to immutably change the global state.
 
+The global state is just a plain old javascript object (POJO). The intent is to pass the global state from function to function in order to achieve some specific set of outcomes. This supports a functional programming style of coding.
+
+- Functions can be pure. (Immutability) Making it simple and easy to preserve the global state with no side effects reduces errors.
+- Functions can be unary. (Composition) Making it simple and easy to chain functions together into a data transform pipeline.
+- Functions can be focused. (Single Responsibility Principle) When the global state does need to be changed, making it simple and easy to only change one aspect per function.
+
 Here's an example of it in action.
 
 ```JavaScript
@@ -66,7 +72,7 @@ async function loadTasks(state) {
 }
 ```
 
-## use
+## The `use` function
 
 The `use` function transforms the global state as a POJO into a temporary object that mirrors the top-level properies of the global state with proxy objects.
 
@@ -116,7 +122,7 @@ function example6 (state) {
 }
 ```
 
-## init
+## The `init` function
 
 Create a new copy of the global state and initialize/replace the value of the top-level property.
 
@@ -137,7 +143,7 @@ const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1
 const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234'}, rememberMe: true}
 ```
 
-## assign
+## The `assign` function
 
 Create a new copy of the global state and merge with the value of the top-level property. The top-level property must be an object. (Inspired by `Object.assign()`)
 
@@ -158,7 +164,7 @@ const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1
 const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234', rememberMe: true}}
 ```
 
-## set
+## The `set` function
 
 Create a new copy of the global state and set a property of the value of the top-level property. The top-level property value must be an object. (Inspired by `lodash.set()`)
 
@@ -179,9 +185,9 @@ const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1
 const result2 = step2(result1) // {login: {username: 'johnqpublic', password: '1234'}, {preferences: {rememberMe: true}}}
 ```
 
-## change
+## The `change` function
 
-Create a new copy of the global state and make one or more changes to the value of the top-level property. In some cases, given the structure of the top-level property, using `change`, is more convenient than using `init`, `assign`, or `set`.
+Create a new copy of the global state and make one or more changes to the value of the top-level property. In some cases, given the structure of the top-level property or other processing complexities, using `change` is more convenient than using `init`, `assign`, or `set`.
 
 ```JavaScript
 function step1 (state) {
@@ -194,7 +200,7 @@ function step1 (state) {
 function step2 (state) {
   const { login  } = use(state);
   return login.change(draft => {
-    draft.username = draft.username.toLowerCase()
+    draft.username = draft.username.toUpperCase()
     draft.code = document.getElementById('code').value;
     if (!draft.preferences) {
       draft.preferences = []
@@ -207,9 +213,9 @@ const result1 = step1(state)   // {login: {username: 'johnqpublic', password: '1
 const result2 = step2(result1) // {login: {username: 'JOHNQPUBLIC', password: '1234', code: 'YYZ', preferences: [{rememberMe: false}]}}
 ```
 
-## get
+## The `get` function
 
-Get the entire value of the top-level property. If the value of the top-level property is an object, get can return just one of its properties. A default value can also be defined. (Inspired by `lodash.get()`)
+Return the entire value of the top-level property. If the value of the top-level property is an object, `get` can return just one of its properties. A default value can also be defined. (Inspired by `lodash.get()`)
 
 ```JavaScript
 const { login  } = use(state);
